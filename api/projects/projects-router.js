@@ -20,4 +20,11 @@ router.get('/:id', (req, res) => {
     .catch(err => console.log(err))
 })
 
+router.post('/', (req, res) => {
+    Projects.insert(req.body).then((project) => {
+        res.status(201).json(project)
+    })
+    .catch(err => console.log(err))
+})
+
 module.exports = router;
