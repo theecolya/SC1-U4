@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const Projects = require('./projects-model')
+const Wares = require('./projects-middleware')
 
 router.get('/', (req, res) => {
     Projects.get().then((project) => {
@@ -20,11 +21,17 @@ router.get('/:id', (req, res) => {
     .catch(err => console.log(err))
 })
 
-router.post('/', (req, res) => {
+router.post('/', Wares.checkName, Wares.checkDesc, (req, res) => {
     Projects.insert(req.body).then((project) => {
-        res.status(201).json(project)
+       res.status(201).json(project)
     })
     .catch(err => console.log(err))
+})
+
+router.put('/:id', Wares.checkName, Wares.checkDesc, Wares.checkCompleted, (req, res) => {
+    Projects.update(req.params.id, req.body).then((project) => {
+        res.status(200).json(project); console.log(req.body)
+    }).catch(err => console.log(err))
 })
 
 module.exports = router;
