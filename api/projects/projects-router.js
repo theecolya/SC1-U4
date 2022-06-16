@@ -30,8 +30,20 @@ router.post('/', Wares.checkName, Wares.checkDesc, (req, res) => {
 
 router.put('/:id', Wares.checkName, Wares.checkDesc, Wares.checkCompleted, (req, res) => {
     Projects.update(req.params.id, req.body).then((project) => {
-        res.status(200).json(project); console.log(req.body)
+        res.status(200).json(project)
     }).catch(err => console.log(err))
+})
+
+router.delete('/:id', (req, res) => {
+    Projects.remove(req.params.id).then((project) => {
+        res.status(200).send('Project successfully deleted')
+    })
+})
+
+router.get('/:id/actions', (req, res) => {
+    Projects.getProjectActions(req.params.id).then((project) => {
+        res.status(200).json(project)
+    })
 })
 
 module.exports = router;
