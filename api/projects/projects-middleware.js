@@ -12,7 +12,7 @@ const checkDesc = (req, res, next) => {
 }
 
 const checkCompleted = (req, res, next) => {
-    if(req.body.completed !== true || req.body.completed !== false) {
+    if(!req.body.completed) {
         res.status(400).send('Ouch: completed is required')
     } else { next() }
 }
