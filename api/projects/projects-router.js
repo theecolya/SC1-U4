@@ -36,14 +36,15 @@ router.put('/:id', Wares.checkName, Wares.checkDesc, Wares.checkCompleted, (req,
 
 router.delete('/:id', (req, res) => {
     Projects.remove(req.params.id).then((project) => {
-        res.status(200).send('Project successfully deleted')
-    })
+        project ? res.status(200).send('Project successfully deleted') :
+        res.status(404).send(`no project found with id ${req.params.id}`)
+    }).catch(err => console.log(err))
 })
 
 router.get('/:id/actions', (req, res) => {
     Projects.getProjectActions(req.params.id).then((project) => {
         res.status(200).json(project)
-    })
+    }).catch(err => console.log(err))
 })
 
 module.exports = router;
