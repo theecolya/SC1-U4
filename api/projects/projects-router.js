@@ -30,7 +30,7 @@ router.post('/', Wares.checkName, Wares.checkDesc, (req, res) => {
 
 router.put('/:id', Wares.checkName, Wares.checkDesc, Wares.checkCompleted, (req, res) => {
     Projects.update(req.params.id, req.body).then((project) => {
-        res.status(200).json(project)
+        res.status(200).json({...req.body}); console.log(res)
     }).catch(err => console.log(err))
 })
 
