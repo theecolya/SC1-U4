@@ -28,9 +28,9 @@ router.post('/', Wares.checkBody, (req, res) => {
     .catch(err => console.log(err))
 })
 
-router.put('/:id', Wares.checkBody, (req, res) => {
+router.put('/:id', (req, res) => {
     Projects.update(req.params.id, req.body).then((project) => {
-        res.status(200).json(project); console.log(project)
+        res.status(200).json(project)
     }).catch(err => console.log(err))
 })
 
